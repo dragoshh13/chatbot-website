@@ -487,10 +487,19 @@
     }
     
     // Aggiungi messaggio alla chat
+
+    // Rende i link cliccabili
+    function makeLinksClickable(text) {
+        const urlRegex = /(https?:\/\/[^\s]+ )/g;
+        return text.replace(urlRegex, '<a href="$1" target="_blank" style="color: #007bff; text-decoration: underline;">$1</a>');
+    }
+
+
+    
     function addMessage(text, isUser = false) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-        messageDiv.textContent = text;
+        messageDiv.innerHTML = makeLinksClickable(text);
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
