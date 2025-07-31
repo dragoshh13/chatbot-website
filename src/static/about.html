@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X0N4ZSSE8P"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X0N4ZSSE8P');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragoș Baicu - Chat with AI Assistant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+    /* Reset di base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-y: scroll;
+        height: 100%;
+        width: 100%;
+    }
+
+    body {
+        font-family: 'Quicksand', sans-serif;
+        background-color: white;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+        font-weight: 800;
+        font-family: "Raleway", sans-serif;   
+    }
+
+    /* Wrapper principale */
+    .portfolio-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        margin-bottom: 62px;
+    }
+
+    /* Header con il nome */
+    header {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        padding-top: 38px;
+        margin-bottom: 0px;
+    }
+
+    /* Menu di navigazione */
+    .nav-menu {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 625px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .nav-menu #home-link.nav-item,
+    .nav-menu #about-link.nav-item {
+        margin: 0 25px;
+    }
+
+    .nav-item {
+        margin: 0 10px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: lighter;
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+    }
+
+    .nav-item:hover {
+        color: #595959;
+    }
+
+    /* Main content area */
+    main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10%;
+        flex: 1;
+        position: relative;
+    }
+
+    /* Container principale del chatbot */
+    .chatbot-container {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 200px);
+        min-height: 500px;
+    }
+
+    /* Sezione foto e info */
+    .profile-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+        border: 2px solid #000;
+    }
+
+    .profile-info h2 {
+        font-family: "Raleway", sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .profile-info p {
+        font-size: 16px;
+        color: #666;
+    }
+
+    /* Area chat */
+    .chat-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid #000;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    /* Header della chat */
+    .chat-header {
+        padding: 15px 20px;
+        background-color: #000;
+        color: white;
+        border-radius: 8px 8px 0 0;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    /* Messaggi */
+    .messages-container {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        max-height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .message.user {
+        align-self: flex-end;
+        background-color: #000;
+        color: white;
+        border-bottom-right-radius: 4px;
+    }
+
+    .message.bot {
+        align-self: flex-start;
+        background-color: #f0f0f0;
+        color: black;
+        border-bottom-left-radius: 4px;
+    }
+
+    /* Pulsanti domande preimpostate */
+    .preset-questions {
+        padding: 15px 20px;
+        border-top: 1px solid #eee;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .preset-btn {
+        padding: 8px 12px;
+        background-color: transparent;
+        border: 1px solid #000;
+        border-radius: 20px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .preset-btn:hover {
+        background-color: #000;
+        color: white;
+    }
+
+    /* Input area */
+    .input-area {
+        padding: 20px;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .message-input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid #000;
+        border-radius: 25px;
+        font-size: 14px;
+        outline: none;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .send-btn {
+        padding: 12px 20px;
+        background-color: #000;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .send-btn:hover {
+        background-color: #333;
+    }
+
+    .send-btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* Loading indicator */
+    .typing-indicator {
+        display: none;
+        align-self: flex-start;
+        padding: 12px 16px;
+        background-color: #f0f0f0;
+        border-radius: 18px;
+        border-bottom-left-radius: 4px;
+        max-width: 80px;
+    }
+
+    .typing-dots {
+        display: flex;
+        gap: 4px;
+    }
+
+    .typing-dots span {
+        width: 8px;
+        height: 8px;
+        background-color: #666;
+        border-radius: 50%;
+        animation: typing 1.4s infinite ease-in-out;
+    }
+
+    .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes typing {
+        0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+        40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Footer */
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+        background-color: white;
+        z-index: 10;
+        box-shadow: 0px -6px 10px rgba(0,0,0,0.055);
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 38px;
+        font-family: "Quicksand", sans-serif;
+        position: relative;
+    }
+
+    .contact-item {
+        font-size: 18px;
+        color: #000000;
+        font-weight: 700;
+        text-decoration: underline;
+        display: flex;
+        align-items: center;
+        transition: color 0.3s ease;
+    }
+
+    .contact-item:hover {
+        color: #ff00d4;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        main {
+            padding: 0 5%;
+        }
+        
+        .chatbot-container {
+            height: calc(100vh - 150px);
+        }
+        
+        .profile-section {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .profile-photo {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+        
+        .preset-questions {
+            flex-direction: column;
+        }
+        
+        .preset-btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .input-area {
+            flex-direction: column;
+        }
+        
+        .message-input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .send-btn {
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 28px;
+        }
+        
+        .footer-content {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        footer {
+            height: 80px;
+        }
+        
+        .chatbot-container {
+            margin-bottom: 80px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="portfolio-wrapper">
+        <header>
+            <h1>DRAGOȘ BAICU</h1>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item" id="home-link">Home</a>
+                <a href="about.html" class="nav-item" id="about-link">About</a>
+            </nav>
+        </header>
+        
+        <main>
+            <div class="chatbot-container">
+                <!-- Sezione profilo -->
+                <div class="profile-section">
+                    <img src="profile-photo.jpg" alt="Dragoș Baicu" class="profile-photo" id="profile-photo">
+                    <div class="profile-info">
+                        <h2>Chat with Dragoș</h2>
+                        <p>Ask me about my professional background, skills, and experience</p>
+                    </div>
+                </div>
+
+                <!-- Area chat -->
+                <div class="chat-area">
+                    <div class="chat-header">
+                        Professional Assistant
+                    </div>
+                    
+                    <div class="messages-container" id="messages-container">
+                        <div class="message bot">
+                            Ciao! Sono l'assistente virtuale di Dragoș. Puoi farmi domande sul suo background professionale, competenze ed esperienza. Come posso aiutarti?
+                        </div>
+                    </div>
+                    
+                    <div class="typing-indicator" id="typing-indicator">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Pulsanti domande preimpostate -->
+                    <div class="preset-questions" id="preset-questions">
+                        <!-- I pulsanti verranno caricati dinamicamente -->
+                    </div>
+                    
+                    <!-- Input area -->
+                    <div class="input-area">
+                        <input type="text" class="message-input" id="message-input" placeholder="Scrivi la tua domanda...">
+                        <button class="send-btn" id="send-btn">Invia</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <a href="mailto:dragos.baicu1@gmail.com" class="contact-item">
+                    dragos.baicu1@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/dragos-baicu-486a4a248" class="contact-item" target="_blank">
+                    LinkedIn
+                </a>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+    // Configurazione API
+    const API_BASE = '/api';
+    
+    // Elementi DOM
+    const messagesContainer = document.getElementById('messages-container');
+    const messageInput = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+    const presetQuestionsContainer = document.getElementById('preset-questions');
+    const typingIndicator = document.getElementById('typing-indicator');
+    
+    // Carica domande preimpostate
+    async function loadPresetQuestions() {
+        try {
+            const response = await fetch(`${API_BASE}/preset-questions`);
+            const data = await response.json();
+            
+            presetQuestionsContainer.innerHTML = '';
+            data.questions.forEach(question => {
+                const btn = document.createElement('button');
+                btn.className = 'preset-btn';
+                btn.textContent = question;
+                btn.onclick = () => sendMessage(question);
+                presetQuestionsContainer.appendChild(btn);
+            });
+        } catch (error) {
+            console.error('Errore nel caricamento delle domande:', error);
+        }
+    }
+    
+    // Aggiungi messaggio alla chat
+    function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+        messageDiv.textContent = text;
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    // Mostra/nascondi indicatore di digitazione
+    function showTyping(show = true) {
+        typingIndicator.style.display = show ? 'flex' : 'none';
+        if (show) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+    
+    // Invia messaggio
+    async function sendMessage(text = null) {
+        const message = text || messageInput.value.trim();
+        if (!message) return;
+        
+        // Aggiungi messaggio utente
+        addMessage(message, true);
+        messageInput.value = '';
+        
+        // Disabilita input
+        sendBtn.disabled = true;
+        messageInput.disabled = true;
+        showTyping(true);
+        
+        try {
+            const response = await fetch(`${API_BASE}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: message })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                addMessage(data.response);
+            } else {
+                addMessage('Mi dispiace, si è verificato un errore. Riprova più tardi.');
+            }
+        } catch (error) {
+            console.error('Errore:', error);
+            addMessage('Mi dispiace, si è verificato un errore di connessione. Riprova più tardi.');
+        } finally {
+            // Riabilita input
+            sendBtn.disabled = false;
+            messageInput.disabled = false;
+            showTyping(false);
+            messageInput.focus();
+        }
+    }
+    
+    // Event listeners
+    sendBtn.addEventListener('click', () => sendMessage());
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    // Inizializzazione
+    document.addEventListener('DOMContentLoaded', () => {
+        loadPresetQuestions();
+        messageInput.focus();
+        
+        // Gestisci foto profilo mancante
+        const profilePhoto = document.getElementById('profile-photo');
+        profilePhoto.onerror = function() {
+            this.style.display = 'none';
+        };
+    });
+    </script>
+</body>
+</html>
+

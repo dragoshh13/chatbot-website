@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="nascosto per privacy"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-X0N4ZSSE8P');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragoș Baicu - Video Design</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+    /* Reset di base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Forza sempre la scrollbar verticale per prevenire spostamenti del layout */
+    html {
+        overflow-y: scroll;
+        height: 100%;
+        width: 100%;
+    }
+
+    body {
+        font-family: 'Instrument Sans', sans-serif;
+        background-color: white !important;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100%;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+        font-weight: 800;
+        font-family: "Raleway", sans-serif;   
+    }
+
+    .video-title {
+        font-family: "Raleway", sans-serif;
+        font-size: 16px;
+        font-weight: 0;
+    }
+
+    /* Wrapper principale */
+    .portfolio-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        margin-bottom: 62px;
+    }
+
+    /* Header con il nome - posizione fissa */
+    header {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        padding-top: 38px;
+        margin-bottom: 0px;
+    }
+
+    /* Stile del menu di navigazione - larghezza fissa */
+    .nav-menu {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 625px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .nav-menu #home-link.nav-item,
+    .nav-menu #about-link.nav-item {
+        margin: 0 25px;
+    }
+
+    .nav-item {
+        margin: 0 10px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: lighter;
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+    }
+
+    .nav-item:hover {
+        margin: 0 10px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: lighter;
+        color: #595959;
+    }
+
+    /* Main content area */
+    main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10% 0 10%;
+        flex: 1;
+        position: relative;
+        
+    }
+
+    /* Griglia per i video - layout di base */
+    .video-grid {
+        width: 100%;
+        max-width: 1500px;
+        display: grid;
+        gap: 2px;
+        background-color: rgba(255, 255, 255, 0.05);
+        align-content: start;
+        justify-content: space-between;
+    }
+
+    /* Box per ogni video */
+    .video-box {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background-color: #f9f9f9;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    /* Titolo del video che appare al passaggio del mouse */
+    .video-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #000;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 600;
+        text-align: center;
+        padding: 12px;
+        background-color: transparent;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+        pointer-events: none;
+        width: 80%;
+    }
+
+    /* Area per l'immagine */
+    .image-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .image-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .video-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.4s ease;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    /* Effetto al passaggio del mouse */
+    .video-box:hover .video-image {
+        transform: scale(1.02);
+    }
+
+    .image-container:hover::after {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .video-box:hover .video-title {
+        opacity: 1;
+    }
+
+    /* Video player espanso con descrizione */
+    .video-player-container {
+        display: none;
+        width: 100%;
+        max-width: 1125px;
+        margin: 20px auto 38px auto;
+        position: relative;
+        z-index: 5;
+        box-shadow: 0px 0px 25px rgba(0,0,0,0.8);
+        border-radius: 20px;
+    }
+
+    .video-player {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background-color: #000;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
+
+    .video-description {
+        width: 100%;
+        background-color: #dbdacf;
+        padding: 25px;
+        min-height: 80px;
+        max-height: 100px;
+        overflow-y: auto;
+        border-top: 1px solid #dbdacf;;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+
+    .close-video {
+        position: absolute;
+        top: -38px;
+        right: 0;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 6;
+    }
+
+    /* Footer con contatti */
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+        background-color: white;
+        z-index: 10;
+        box-shadow: 0px -6px 10px rgba(0,0,0,0.055);
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 38px;
+        font-family: "Quicksand", sans-serif;
+        position: relative;
+    }
+
+    .contact-item {
+        font-size: 18px;
+        color: #000000;
+        font-weight: 700;
+        text-decoration: underline;
+        display: flex;
+        align-items: center;
+        transition: color 0.3s ease;
+    }
+
+    .contact-item:hover {
+        color: #ff00d4;
+    }
+
+    /* Stile per il menu delle lingue */
+    .language-container {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        z-index: 20;
+    }
+
+    .language-btn {
+        font-size: 16px;
+        color: #000;
+        cursor: pointer;
+        font-weight: 700;
+        padding: 5px 10px;
+        background: none;
+        border: none;
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .language-btn:hover {
+        color: #ff00d4;
+    }
+
+    .language-options {
+        display: flex;
+        overflow: hidden;
+        max-width: 0;
+        transition: max-width 0.5s ease;
+    }
+
+    .language-options.active {
+        max-width: 200px;
+    }
+
+    .lang-option {
+        font-size: 16px;
+        color: #000;
+        cursor: pointer;
+        padding: 5px 10px;
+        background: none;
+        border: none;
+        white-space: nowrap;
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .lang-option:hover {
+        color: #ff00d4;
+    }
+
+    .lang-option.active {
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    /* Responsive design - Tablet */
+    @media (min-width: 539px) and (max-width: 960px) {
+        .video-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-rows: auto !important;
+        }
+        
+        .video-box.full-width {
+            grid-column: span 2 !important;
+        }
+        
+        .video-box.wide {
+            grid-column: span 2 !important;
+        }
+
+        /* MODIFICHE: Menu delle lingue verso l'alto */
+        .language-container {
+            flex-direction: column-reverse;
+        }
+        
+        .language-options {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            flex-direction: column;
+            max-height: 0;
+            max-width: none;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background-color: white;
+            box-shadow: 0px -2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .language-options.active {
+            max-height: 200px;
+            max-width: none;
+        }
+        
+        /* Fix per allineare l'header con il contenuto about */
+        header {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 38px;
+        }
+        
+        /* Assicura che il titolo sia centrato */
+        h1 {
+            text-align: center;
+            width: 100%;
+        }
+        
+        /* Adatta la larghezza del menu di navigazione */
+        .nav-menu {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Adatta il padding del main per allineare con l'header */
+        main {
+            padding: 0 10%;
+        }
+    }
+
+    /* Modifiche per schermi sotto i 538px */
+    @media (max-width: 538px) {
+        /* Manteniamo la struttura di base dell'header */
+        header {
+            display: flex;
+            flex-direction: column-reverse;
+            padding-top: 25px;
+            position: relative;
+        }
+
+        main {
+            padding: 0 2px 80px 2px;
+        }
+
+        /* Il menu di navigazione rimane fisso in alto */
+        .nav-menu {
+            flex-direction: row;
+            justify-content: center;
+            margin-bottom: 19px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            background-color: white;
+            padding: 12px 0;
+        }
+
+        /* Riduciamo lo spazio tra le voci di menu */
+        .nav-menu .nav-item {
+            font-size: 15px;
+        }
+        
+        /* Titolo - ora si muove con il contenuto */
+        h1 {
+            font-size: 28px;
+            margin-top: 50px;
+            margin-bottom: 19px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* MODIFICHE: Griglia dei video su due colonne */
+        .video-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-rows: auto !important;
+            gap: 4px;
+        }
+        
+        /* Per un numero dispari di video, l'ultimo occupa tutta la larghezza */
+        .video-box:last-child:nth-child(odd) {
+            grid-column: span 2 !important;
+        }
+        
+        /* Video player per mobile */
+        .video-player-container {
+            max-width: 100%;
+        }
+
+        footer {
+            height: 100px;
+        }
+        
+        /* Footer per mobile */
+        .footer-content {
+            flex-direction: column;
+            gap: 5px;
+            padding-bottom: 10px;
+            height: 100%;
+        }
+
+        /* Posizionamento del menu della lingua su mobile */
+        .language-container {
+            position: relative;
+            left: 0;
+            top: 15px;
+            justify-content: center;
+        }
+    }
+
+    /* NUOVE PROTEZIONI CSS PER IMMAGINI E VIDEO */
+    img, video {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none; /* iOS Safari */
+        pointer-events: none; /* Blocca interazioni dirette */
+    }
+
+    /* Usa un overlay trasparente sulle immagini per protezione aggiuntiva */
+    .image-container {
+        position: relative;
+    }
+
+    .image-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        pointer-events: auto; /* Intercetta gli eventi */
+        cursor: pointer;
+    }
+
+    /* Mantieni i controlli video funzionali */
+    .video-player {
+        pointer-events: auto !important;
+    }
+    </style>
+</head>
+<body>
+    <div class="portfolio-wrapper">
+        <header>
+            <h1>DRAGOȘ BAICU</h1>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item" id="home-link">Home</a>
+                <a href="about.html" class="nav-item" id="about-link">About</a>
+            </nav>
+        </header>
+        
+        <main>
+            <!-- Container per il video player espanso -->
+            <div class="video-player-container" id="video-player-container">
+                <div class="close-video" id="close-video">✕</div>
+                <video class="video-player" id="video-player" controls controlsList="nodownload" oncontextmenu="return false;"></video>
+                <div class="video-description" id="video-description">
+                    <!-- La descrizione del video verrà inserita qui dinamicamente -->
+                </div>
+            </div>
+            
+            <div class="video-grid" id="main-grid">
+                <!-- I video box saranno generati dinamicamente in base ai dati -->
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <!-- Menu delle lingue -->
+                <div class="language-container">
+                    <button id="language-toggle" class="language-btn">Language</button>
+                    <div id="language-options" class="language-options">
+                        <button class="lang-option active" data-lang="en">EN</button>
+                        <button class="lang-option" data-lang="it">IT</button>
+                        <button class="lang-option" data-lang="es">ES</button>
+                        <button class="lang-option" data-lang="ro">RO</button>
+                    </div>
+                </div>
+                <a href="mailto:dragos.baicu@gmail.com" class="contact-item">
+                    dragos.baicu1@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/dragos-baicu-486a4a248" class="contact-item" target="_blank">
+                    LinkedIn
+                </a>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+    // Prevent context menu on all images
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+            e.preventDefault();
+            return false;
+        }
+    }, false);
+    
+    // Prevent drag for images to stop drag-and-drop saving
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+            e.preventDefault();
+            return false;
+        }
+    }, false);
+    
+    // Add keyboard listener to prevent save shortcuts on media elements
+    document.addEventListener('keydown', function(e) {
+        // Prevent Ctrl+S, Command+S
+        if ((e.ctrlKey || e.metaKey) && e.keyCode === 83) {
+            if (document.activeElement.tagName === 'VIDEO' || 
+                document.activeElement.tagName === 'IMG' ||
+                document.querySelector('.video-player-container').style.display === 'block') {
+                e.preventDefault();
+                return false;
+            }
+        }
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Struttura dati multilingua
+        const translations = {
+            // Traduzioni di testo per la navigazione
+            nav: {
+                en: {
+                    home: "Home",
+                    about: "About"
+                },
+                it: {
+                    home: "Home",
+                    about: "Chi sono"
+                },
+                es: {
+                    home: "Inicio",
+                    about: "Sobre mí"
+                },
+                ro: {
+                    home: "Acasă",
+                    about: "Despre"
+                }
+            },
+            
+            // Traduzioni per i pulsanti
+            buttons: {
+                en: {
+                    language: "Language"
+                },
+                it: {
+                    language: "Lingua"
+                },
+                es: {
+                    language: "Idioma"
+                },
+                ro: {
+                    language: "Limbă"
+                }
+            },
+            
+            // Traduzioni per le descrizioni dei video
+            videoDescriptions: {
+                "CuraBuddy": {
+                    en: "CuraBuddy is an AI-based virtual assistant that helps family caregivers manage care for their elderly loved ones. This video presents the vision and mission of the project, illustrating how technology can support those who care for others.",
+                    it: "CuraBuddy è un assistente virtuale basato sull'intelligenza artificiale che aiuta i caregiver familiari a gestire le cure per i propri cari anziani. Questo video presenta la visione e la missione del progetto, illustrando come la tecnologia possa supportare chi si prende cura degli altri.",
+                    es: "CuraBuddy es un asistente virtual basado en inteligencia artificial que ayuda a los cuidadores familiares a gestionar la atención de sus seres queridos mayores. Este video presenta la visión y misión del proyecto, ilustrando cómo la tecnología puede apoyar a quienes cuidan de otros.",
+                    ro: "CuraBuddy este un asistent virtual bazat pe inteligență artificială care ajută îngrijitorii familiali să gestioneze îngrijirea persoanelor vârstnice dragi. Acest video prezintă viziunea și misiunea proiectului, ilustrând modul în care tehnologia poate sprijini pe cei care îngrijesc de alții."
+                },
+                "PickABite": {
+                    en: "This video was created during the Llama Hackathon in Rome. It shows how our team developed an innovative application using artificial intelligence to solve real problems in the healthcare sector.",
+                    it: "Questo video è stato realizzato durante l'Hackathon di Llama a Roma. Mostra come il nostro team ha sviluppato un'applicazione innovativa utilizzando l'intelligenza artificiale per risolvere problemi reali nel settore sanitario.",
+                    es: "Este video fue creado durante el Hackathon de Llama en Roma. Muestra cómo nuestro equipo desarrolló una aplicación innovadora utilizando inteligencia artificial para resolver problemas reales en el sector sanitario.",
+                    ro: "Acest videoclip a fost creat în timpul Hackathonului Llama de la Roma. Arată cum echipa noastră a dezvoltat o aplicație inovatoare folosind inteligența artificială pentru a rezolva probleme reale din sectorul sănătății."
+                },
+                "PM-AI Assistant": {
+                    en: "PM-AI Assistant is an application that uses artificial intelligence to help project managers organize tasks, monitor progress, and optimize workflows. This video demonstrates the key features of the assistant and how it can improve productivity in teams.",
+                    it: "PM-AI Assistant è un'applicazione che sfrutta l'intelligenza artificiale per aiutare i project manager a organizzare attività, monitorare progressi e ottimizzare i flussi di lavoro. Questo video dimostra le funzionalità chiave dell'assistente e come può migliorare la produttività nei team.",
+                    es: "PM-AI Assistant es una aplicación que utiliza inteligencia artificial para ayudar a los gestores de proyectos a organizar tareas, monitorear el progreso y optimizar los flujos de trabajo. Este video demuestra las características clave del asistente y cómo puede mejorar la productividad en los equipos.",
+                    ro: "PM-AI Assistant este o aplicație care utilizează inteligența artificială pentru a ajuta managerii de proiecte să organizeze sarcini, să monitorizeze progresul și să optimizeze fluxurile de lucru. Acest videoclip demonstrează funcțiile cheie ale asistentului și cum poate îmbunătăți productivitatea în echipe."
+                },
+                "StormNet": {
+                    en: "StormNet is a revolutionary technology that maintains internet connections even during extreme weather conditions. This video explores the concept of digital resilience and how remote communities can benefit from reliable connectivity during emergencies and natural disasters.",
+                    it: "StormNet è una tecnologia rivoluzionaria che mantiene le connessioni internet anche durante condizioni meteorologiche estreme. Questo video esplora il concetto di resilienza digitale e come le comunità remote possono beneficiare di una connettività affidabile durante emergenze e disastri naturali.",
+                    es: "StormNet es una tecnología revolucionaria que mantiene las conexiones a internet incluso durante condiciones climáticas extremas. Este video explora el concepto de resiliencia digital y cómo las comunidades remotas pueden beneficiarse de una conectividad confiable durante emergencias y desastres naturales.",
+                    ro: "StormNet este o tehnologie revoluționară care menține conexiunile la internet chiar și în timpul condițiilor meteorologice extreme. Acest videoclip explorează conceptul de reziliență digitală și cum pot beneficia comunitățile îndepărtate de conectivitate fiabilă în timpul urgențelor și dezastrelor naturale."
+                },
+                "Lexy": {
+                    en: "# SLERD (Smart Learning Ecosystems and Regional Development) SLERD 2025 invites students to showcase innovative smart education projects through demos and prototypes rather than papers. Following initial proposal selection, three finalists compete at the conference for a €500 prize. Projects must address smart learning spaces, people-centered design, or educational technologies.",
+                    it: "Questo video esplora le nuove frontiere della generazione di contenuti video tramite intelligenza artificiale. Utilizziamo le ultime tecnologie come Sora per creare esempi di contenuti visivi che un tempo richiedevano settimane di lavoro e che ora possono essere generati in pochi minuti con input testuali.",
+                    es: "Este video explora las nuevas fronteras de la generación de contenido de video mediante inteligencia artificial. Utilizamos las últimas tecnologías como Sora para crear ejemplos de contenido visual que antes requería semanas de trabajo y que ahora puede generarse en minutos con entradas textuales.",
+                    ro: "Acest videoclip explorează noile frontiere ale generării de conținut video prin inteligență artificială. Folosim cele mai recente tehnologii precum Sora pentru a crea exemple de conținut vizual care odinioară necesitau săptămâni de muncă și care acum pot fi generate în câteva minute cu intrări textuale."
+                },
+                "Remnant 3025": {
+                    en: "Lokahi is a platform that connects local communities to promote sustainability and resource sharing. This video presents the vision of the project and shows how technology can facilitate collaboration between people to create more resilient and sustainable urban ecosystems.",
+                    it: "Lokahi è una piattaforma che connette comunità locali per promuovere la sostenibilità e lo scambio di risorse. Questo video presenta la visione del progetto e mostra come la tecnologia possa facilitare la collaborazione tra persone per creare ecosistemi urbani più resilienti e sostenibili.",
+                    es: "Lokahi es una plataforma que conecta comunidades locales para promover la sostenibilidad y el intercambio de recursos. Este video presenta la visión del proyecto y muestra cómo la tecnología puede facilitar la colaboración entre personas para crear ecosistemas urbanos más resilientes y sostenibles.",
+                    ro: "Lokahi este o platformă care conectează comunități locale pentru a promova durabilitatea și schimbul de resurse. Acest videoclip prezintă viziunea proiectului și arată cum tehnologia poate facilita colaborarea între oameni pentru a crea ecosisteme urbane mai reziliente și durabile."
+                },
+
+                "BookMatch": {
+                    en: "BookMatch is an application that aims to innovate the customer journey for readers. Specifically, it allows users to converse with characters before purchasing a book. The application is based on Generative AI (LLM).",
+                    it: "BookMatch è una applicazione che vuole innovare la customer journey dei lettori. In particolare permette di conversare con i personaggi prima di comprare un libro. L'abblicazione si basa sulla AI Generativa (LLM).",
+                    es: "BookMatch es una aplicación que quiere innovar la experiencia del cliente (customer journey) de los lectores. En particular, permite conversar con los personajes antes de comprar un libro. La aplicación se basa en Inteligencia Artificial Generativa (LLM).",
+                    ro: "BookMatch este o aplicație care vrea să inoveze experiența cititorilor (customer journey). Mai exact, permite utilizatorilor să converseze cu personajele înainte de a cumpăra o carte. Aplicația se bazează pe Inteligență Artificială Generativă (LLM)."
+                },
+            }
+        };
+        
+        // Dati dei video
+        const videoData = [
+
+            {
+                video: "Video/Remnant 3025 memory hunters.mp4",
+                image: "Immagini/Nave nello spazio.png",
+                title: "Remnant 3025",
+                description: "Lokahi è una piattaforma che connette comunità locali per promuovere la sostenibilità e lo scambio di risorse. Questo video presenta la visione del progetto e mostra come la tecnologia possa facilitare la collaborazione tra persone per creare ecosistemi urbani più resilienti e sostenibili."
+            },
+
+            {
+                video: "Video/The Lonelist StormNet - AI for Connectivity II.mp4",
+                image: "Immagini/Connectivity II.webp",
+                title: "StormNet",
+                description: "StormNet è una tecnologia rivoluzionaria che mantiene le connessioni internet anche durante condizioni meteorologiche estreme. Questo video esplora il concetto di resilienza digitale e come le comunità remote possono beneficiare di una connettività affidabile durante emergenze e disastri naturali."
+            },
+            {
+                video: "Video/CuraBuddy Pitch.mp4",
+                image: "Immagini/Umanità.jpg",
+                title: "CuraBuddy",
+                description: "CuraBuddy è un assistente virtuale basato sull'intelligenza artificiale che aiuta i bambini malati ad aderire al paino alimentare più sano per loro. Questo video presenta la visione e la missione del progetto, illustrando come la tecnologia possa supportare chi si prende cura degli altri."
+            },
+            {
+                video: "Video/Video LLama Hackathon Rome 2.mp4",
+                image: "Immagini/Llama.webp",
+                title: "PickABite",
+                description: "Questo video è stato realizzato durante l'Hackathon di Llama a Roma. Mostra come il nostro team ha sviluppato un'applicazione innovativa utilizzando l'intelligenza artificiale per risolvere problemi reali nel settore sanitario."
+            },
+            {
+                video: "Video/Task.mp4",
+                image: "Immagini/IBM.webp",
+                title: "PM-AI Assistant",
+                description: "PM-AI Assistant è un'applicazione che sfrutta l'intelligenza artificiale per aiutare i project manager a organizzare attività, monitorare progressi e ottimizzare i flussi di lavoro. Questo video dimostra le funzionalità chiave dell'assistente e come può migliorare la produttività nei team."
+            },
+            
+            {
+                video: "Video/Lexy.mp4",
+                image: "Immagini/Lexy-Cover.jpg",
+                title: "Lexy",
+                description: "Lokahi è una piattaforma che connette comunità locali per promuovere la sostenibilità e lo scambio di risorse. Questo video presenta la visione del progetto e mostra come la tecnologia possa facilitare la collaborazione tra persone per creare ecosistemi urbani più resilienti e sostenibili."
+            },
+
+            {
+                video: "Video/BookMatch1.mp4",
+                image: "Immagini/toothless.png",
+                title: "BookMatch",
+                description: "BookMatch è una applicazione che vuole innovare la customer journey dei lettori. In particolare permette di conversare con i personaggi prima di comprare un libro. L'abblicazione si basa sulla AI Generativa (LLM)."
+            }
+        ];
+        
+        // Filtra i video con link validi
+        const validVideos = videoData.filter(item => item.video !== "");
+        const videoCount = validVideos.length;
+        
+        // Inizializza lingua corrente
+        let currentLanguage = 'en';
+        
+        // Riferimenti agli elementi dell'interfaccia
+        const mainGrid = document.getElementById('main-grid');
+        const homeLink = document.getElementById('home-link');
+        const aboutLink = document.getElementById('about-link');
+        const videoPlayerContainer = document.getElementById('video-player-container');
+        const videoPlayer = document.getElementById('video-player');
+        const videoDescription = document.getElementById('video-description');
+        const closeVideoBtn = document.getElementById('close-video');
+        
+        // Elementi per il menu delle lingue
+        const languageToggle = document.getElementById('language-toggle');
+        const languageOptions = document.getElementById('language-options');
+        const languageButtons = document.querySelectorAll('.lang-option');
+        
+        // Variabile per tenere traccia dello stato di riproduzione del video
+        let isVideoPlaying = false;
+        let currentVideoData = null;
+        
+        // Funzione per aggiornare i testi in base alla lingua selezionata
+        function updateLanguage(lang) {
+            // Imposta la lingua corrente
+            currentLanguage = lang;
+            
+            // Aggiorna il testo del menu
+            homeLink.textContent = translations.nav[lang].home;
+            aboutLink.textContent = translations.nav[lang].about;
+            
+            // Aggiorna il testo del pulsante lingua
+            languageToggle.textContent = translations.buttons[lang].language;
+            
+            // Se un video è in riproduzione, aggiorna la sua descrizione
+            if (videoPlayerContainer.style.display === 'block' && currentVideoData) {
+                updateVideoDescription(currentVideoData);
+            }
+            
+            // Aggiorna lo stato attivo dei pulsanti delle lingue
+            languageButtons.forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Imposta l'attributo lang del documento HTML
+            document.documentElement.lang = lang;
+            
+            // Salva la lingua corrente in localStorage per mantenerla tra le pagine
+            localStorage.setItem('selectedLanguage', lang);
+        }
+        
+        // Funzione per aggiornare la descrizione del video in base alla lingua
+        function updateVideoDescription(videoData) {
+            if (videoData && videoData.title) {
+                const translatedDescription = translations.videoDescriptions[videoData.title][currentLanguage];
+                videoDescription.textContent = translatedDescription || videoData.description;
+            }
+        }
+        
+        // Toggle del menu delle lingue
+        languageToggle.addEventListener('click', function() {
+            languageOptions.classList.toggle('active');
+        });
+        
+        // Gestione del click sui pulsanti delle lingue
+        languageButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                updateLanguage(lang);
+                languageOptions.classList.remove('active');
+            });
+        });
+        
+        // Chiudi il menu delle lingue quando si clicca altrove
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.language-container')) {
+                languageOptions.classList.remove('active');
+            }
+        });
+        
+        // Configura il layout in base al numero di video
+        function setupGridLayout() {
+            mainGrid.innerHTML = ''; // Cancella il contenuto esistente
+            
+            // Imposta le classi CSS in base al numero di video
+            switch(videoCount) {
+                case 1:
+                    mainGrid.style.gridTemplateColumns = "1fr";
+                    break;
+                case 2:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr";
+                    break;
+                case 3:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr";
+                    break;
+                case 4:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr";
+                    break;
+                case 5:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr";
+                    break;
+                case 6:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr 1fr";
+                    break;
+                case 7:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr 1fr";
+                    break;
+                case 8:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr 1fr";
+                    break;
+                case 9:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr 1fr";
+                    break;
+                default:
+                    mainGrid.style.gridTemplateColumns = "1fr 1fr 1fr";
+                    break;
+            }
+            
+            // Crea i video box e assegna le classi appropriate
+            validVideos.forEach((item, index) => {
+                const videoBox = document.createElement('div');
+                videoBox.className = 'video-box';
+                videoBox.setAttribute('data-video', item.video);
+                videoBox.setAttribute('data-description', item.description);
+                videoBox.setAttribute('data-index', index);
+                videoBox.setAttribute('data-title', item.title);
+                
+                // Assegna classi speciali per layout specifici
+                if (videoCount === 3 && index === 2) {
+                    videoBox.classList.add('wide'); // Il terzo video occupa tutta la larghezza nella seconda riga
+                }
+                
+                if (videoCount === 5 && index === 4) {
+                    videoBox.classList.add('full-width'); // Il quinto video occupa tutta la larghezza
+                }
+                
+                if (videoCount === 7 && index === 6) {
+                    videoBox.classList.add('full-width'); // Il settimo video occupa tutta la larghezza
+                }
+                
+                // Crea il contenuto del video box
+                videoBox.innerHTML = `
+                    <div class="image-container">
+                        <img class="video-image" src="${item.image}" alt="${item.title}" oncontextmenu="return false;" draggable="false">
+                    </div>
+                    <div class="video-title">${item.title}</div>
+                `;
+                
+                // Aggiunge il video box alla griglia
+                mainGrid.appendChild(videoBox);
+            });
+            
+            // Applica layout specifici in base al numero di video
+            const videoBoxes = document.querySelectorAll('.video-box');
+            
+            if (videoCount === 3) {
+                videoBoxes[2].style.gridColumn = "1 / span 2";
+            }
+            
+            if (videoCount === 5) {
+                videoBoxes[4].style.gridColumn = "1 / span 2";
+            }
+            
+            if (videoCount === 7) {
+                videoBoxes[6].style.gridColumn = "1 / span 3";
+            }
+            
+            if (videoCount === 8) {
+                videoBoxes[6].style.gridColumn = "1 / span 2";
+                videoBoxes[7].style.gridColumn = "3 / span 1";
+            }
+            
+            // Funzione per applicare il layout mobile
+            applyMobileLayout();
+        }
+        
+        // Funzione per applicare il layout mobile
+        function applyMobileLayout() {
+            if (window.innerWidth <= 538) {
+                const videoBoxes = document.querySelectorAll('.video-box');
+                const videoCount = videoBoxes.length;
+                
+                // Se c'è un numero dispari di video
+                if (videoCount % 2 !== 0) {
+                    // Fai in modo che l'ultimo video occupi tutta la larghezza
+                    videoBoxes[videoCount - 1].style.gridColumn = "1 / span 2";
+                }
+            }
+        }
+        
+        // Funzione per mostrare un video
+        function showVideo(videoData) {
+            // Imposta la descrizione del video con traduzione corretta
+            updateVideoDescription(videoData);
+            
+            // Memorizza il video corrente
+            currentVideoData = videoData;
+            
+            // Imposta la fonte del video
+            videoPlayer.src = videoData.video;
+            
+            // Applica protezioni aggiuntive - usa solo "nodownload" per consentire fullscreen
+            videoPlayer.setAttribute('controlsList', 'nodownload');
+            videoPlayer.disablePictureInPicture = true;
+            videoPlayer.oncontextmenu = function() { return false; };
+            
+            // Protezione aggiuntiva contro il salvataggio
+            videoPlayer.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Mostra il container del video player
+            videoPlayerContainer.style.display = 'block';
+            
+            // Scorri fino al video player
+            videoPlayerContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Carica e avvia il video
+            videoPlayer.load();
+            videoPlayer.play().catch(e => console.log('Impossibile avviare la riproduzione automatica:', e));
+            
+            // Imposta lo stato di riproduzione
+            isVideoPlaying = true;
+        }
+        
+        // Inizializza il layout
+        setupGridLayout();
+        
+        // Aggiorna i listener per i video box
+        function updateVideoBoxListeners() {
+            document.querySelectorAll('.video-box').forEach((box) => {
+                box.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    const videoData = validVideos[index];
+                    showVideo(videoData);
+                });
+            });
+        }
+        
+        // Aggiorna i listener
+        updateVideoBoxListeners();
+        
+        // Gestione chiusura video
+        closeVideoBtn.addEventListener('click', function() {
+            // Ferma la riproduzione
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+            
+            // Nascondi il player
+            videoPlayerContainer.style.display = 'none';
+            
+            // Aggiorna lo stato di riproduzione
+            isVideoPlaying = false;
+            currentVideoData = null;
+        });
+        
+        // Monitoriamo gli eventi del video player
+        videoPlayer.addEventListener('play', function() {
+            isVideoPlaying = true;
+        });
+        
+        videoPlayer.addEventListener('ended', function() {
+            isVideoPlaying = false;
+        });
+        
+        // Chiudi il video anche quando si clicca ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && videoPlayerContainer.style.display === 'block') {
+                closeVideoBtn.click();
+            }
+        });
+        
+        // Ridimensionamento della finestra
+        window.addEventListener('resize', function() {
+            applyMobileLayout();
+        });
+        
+        // NUOVE PROTEZIONI AVANZATE CONTRO IL DOWNLOAD
+        // Blocca scorciatoie da tastiera potenzialmente utilizzate per salvare contenuti
+        document.addEventListener('keydown', function(e) {
+            // Combinazioni di tasti comuni per salvare: Ctrl+S, Command+S, Alt+S
+            if ((e.ctrlKey || e.metaKey || e.altKey) && (e.key === 's' || e.keyCode === 83)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Blocca il tasto Stamp per gli screenshot
+            if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Impedisci Ctrl+P (Stampa) che può essere usato per salvare come PDF
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.keyCode === 80)) {
+                if (document.querySelector('.video-player-container').style.display === 'block') {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+
+        // Blocca il menu contestuale (tasto destro) sull'intero documento quando un video è in riproduzione
+        document.addEventListener('contextmenu', function(e) {
+            if (document.querySelector('.video-player-container').style.display === 'block') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Protezioni addizionali per Firefox
+        const allImages = document.querySelectorAll('img');
+        allImages.forEach(img => {
+            img.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+            });
+        });
+        
+        // Aggiungi attributi di protezione a tutti i video
+        const allVideos = document.querySelectorAll('video');
+        allVideos.forEach(video => {
+            video.setAttribute('controlsList', 'nodownload');
+            video.disablePictureInPicture = true;
+            // Per Firefox, impedisci il trascinamento
+            video.addEventListener('mousedown', function(e) {
+                if (e.button === 2) { // tasto destro
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // Carica la lingua salvata o inizializza con quella predefinita
+        const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+        updateLanguage(savedLanguage);
+    });
+    </script>
+</body>
+</html>
