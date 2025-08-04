@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('chatbot')
 
 # Cartella documenti
-DOCUMENTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'documents')
+DOCUMENTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__)), 'documents')
 
 # Informazioni strutturate (modifica qui per aggiungere/aggiornare i tuoi dati)
 STRUCTURED_DATA = {
@@ -57,59 +57,46 @@ STRUCTURED_DATA = {
     ]
 }
 
-# Prompt di sistema avanzato
+# FIX 1: Migliorato il prompt per formattazione elenchi
 SYSTEM_PROMPT = """
 Sei Dragoș Baicu, un professionista IT e creativo digitale. Rispondi in modo conciso e mirato alle domande dei recruiter.
 
 # Istruzioni fondamentali
-1. **Risposte focalizzate**: 
+1. **Formattazione elenchi**:
+   - Usa SEMPRE '-' per gli elenchi puntati (non '*' o altri caratteri)
+   - Allinea tutti gli elementi a sinistra senza rientri
+   - Massimo 5 punti per elenco
+
+2. **Risposte focalizzate**: 
    - Massimo 2-3 frasi per domande semplici
-   - Usa elenchi puntati per domande su competenze/progetti
    - Differenzia chiaramente tra competenze tecniche e punti di forza personali
 
-2. **Tono e stile**:
+3. **Tono e stile**:
    - Domande tecniche: tono professionale e diretto
    - Domande personali: tono più caldo e personale
    - Evita ripetizioni e informazioni ridondanti
 
-3. **Materiali di supporto**:
-   - Includi link pertinenti (portfolio, articoli) SOLO quando aggiungono valore concreto
-   - Suggerisci elementi del portfolio solo se dimostrano competenze richieste
-   - Contatti: menziona discretamente SOLO quando c'è interesse concreto
-
 # Linee guida per tipologie di domande
 
 ## Competenze tecniche (es: "Quali linguaggi conosci?")
-- Risposta strutturata a punti
-- Specifica anni di esperienza per ogni competenza
-- Link a progetti rilevanti
+- Formatta a punti SEMPRE così:
+- **Nome competenza** (esperienza): breve descrizione
 - Esempio: 
-  • Python (5 anni) - [Vedi progetto AI](link)
-  • JavaScript (4 anni) - [E-commerce](link)
+- **Python** (5 anni): Sviluppo backend e analisi dati
+- **JavaScript** (4 anni): Sviluppo frontend e applicazioni web
 
 ## Punti di forza personali (es: "Quali sono i suoi punti di forza?")
 - Massimo 3 punti focali
 - Breve esempio concreto per ognuno
-- Tonle personale ma professionale
+- Formatta:
+- **Punto di forza**: Esempio concreto
 - Esempio:
-  Creatività: Nella progettazione del brand XY ho sviluppato...
-
-## Esperienze lavorative
-- Periodo, ruolo e azienda
-- 1-2 risultati chiave
-- Link a progetto/referenza se disponibile
-
-## Richieste di contatto
-- Non offrire contatti non richiesti
-- Se chiesto esplicitamente: 
-  "Sono disponibile per approfondire. Può contattarmi via email a dragos.baicu@example.com o al +39 123 4567890"
-- Altrimenti: "Sono aperto a nuove opportunità. Possiamo programmare un colloquio per discutere meglio?"
+- **Problem solving**: Risolto X problema in Y progetto
 
 ## Suggerimento portfolio
 - Solo se pertinente alla domanda
-- Breve descrizione del valore dimostrato
-- Esempio: 
-  "Per dimostrare le mie capacità in Premiere Pro, potrebbe essere utile vedere questo [video corporate](link) dove..."
+- Formatta come: 
+  "Potrebbe vedere [titolo progetto](link) per un esempio concreto di [competenza]"
 """
 
 def read_pdf(file_path):
@@ -181,6 +168,7 @@ def get_relevant_portfolio_items(question, max_items=2):
     
     return relevant
 
+# FIX 2: Migliorata formattazione portfolio
 def format_portfolio_suggestion(items):
     """Formatta la presentazione degli elementi del portfolio"""
     if not items:
@@ -189,18 +177,18 @@ def format_portfolio_suggestion(items):
     suggestion = "\n\n**Potrebbe essere utile vedere:**"
     for item in items:
         suggestion += f"\n- [{item['title']}]({item['url']})"
-        if 'skills' in item:
-            suggestion += f" (dimostra: {', '.join(item['skills'])})"
     
     return suggestion
 
+# FIX 3: Migliorata formattazione contatti
 def format_contact_info():
     """Formatta le informazioni di contatto"""
     contact = STRUCTURED_DATA['contact']
     return (
-        f"\n\nPer coordinare un colloquio: "
-        f"{contact['email']} | {contact['phone']}\n"
-        f"[Profilo LinkedIn]({contact['linkedin']})"
+        f"\n\n**Contatti:**\n"
+        f"- Email: {contact['email']}\n"
+        f"- Telefono: {contact['phone']}\n"
+        f"- [LinkedIn]({contact['linkedin']})"
     )
 
 @chatbot_bp.route('/chat', methods=['POST'])
@@ -249,6 +237,10 @@ def chat():
         
         # Estrai e processa la risposta
         bot_response = response.content[0].text
+        
+        # FIX 4: Correzione formattazione elenchi
+        # Sostituisce eventuali punti elenco diversi con '-'
+        bot_response = re.sub(r'(\*|\+|\d+\.)\s+', '- ', bot_response)
         
         # Aggiungi elementi contestuali se pertinenti
         if should_include_contact(question):
